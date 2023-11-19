@@ -18,7 +18,7 @@ poetry shell
 Run `title-belt-nhl --help` for usage information.
 
 ```
-$ title-belt-holder --help
+$ title-belt-nhl --help
 
 Usage: title-belt-nhl [OPTIONS]
 
