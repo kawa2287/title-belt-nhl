@@ -15,7 +15,7 @@ poetry shell
 
 ## Usage
 
-Run `title-belt-holder --help` for usage information.
+Run `title-belt-nhl --help` for usage information.
 
 ```
 $ title-belt-holder --help
