@@ -7,7 +7,7 @@ from typing import Union
 import click
 
 EXCEL_EPOCH_DATE = date(1900, 1, 1)
-SCHEDULE_FILE = Path(__file__).parent / "static" / "schedule.csv"
+SCHEDULE_FILE = Path(__file__).parent / "static" / "schedule_2024_2025.csv"
 
 
 @click.command()
