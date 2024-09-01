@@ -3,12 +3,13 @@ from datetime import date
 from pathlib import Path
 from textwrap import dedent
 from typing import Union
+from title_belt_nhl.service.nhl_api import getFullSchedule
 
 import click
 
 EXCEL_EPOCH_DATE = date(1900, 1, 1)
 SCHEDULE_FILE = Path(__file__).parent / "static" / "schedule_2024_2025.csv"
-
+SEASON = '20242025'
 
 @click.command()
 @click.option("--team", default="VAN", required=True)
@@ -26,6 +27,7 @@ def cli(team, holder):
     click.echo(f"CURRENT BELT HOLDER: {holder}")
     click.echo(f"{len(games)-1} GAMES UNTIL `{team}` HAS A SHOT AT THE BELT")
     click.echo(path)
+    print(len(getFullSchedule(SEASON)))
 
 
 class ExcelDate:
