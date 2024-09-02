@@ -1,11 +1,15 @@
 import requests
 from title_belt_nhl.static.nhl_tms import nhl_team_abbvs
+from title_belt_nhl.models.nhl_team_schedule_response import ApiTeamScheduleResponse, Game
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from functools import lru_cache
+from typing import Dict
+
 
 @lru_cache(maxsize=None)
-def getTeamSchedule(team:str, season:str):
-    url = f'https://api-web.nhle.com/v1/club-schedule-season/{team}/{season}'
+def getTeamSchedule(tm_abv:str, season:str) -> ApiTeamScheduleResponse:
+    """Gets the full season schedule for the given team."""
+    url = f'https://api-web.nhle.com/v1/club-schedule-season/{tm_abv}/{season}'
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
@@ -13,7 +17,12 @@ def getTeamSchedule(team:str, season:str):
         print(f"Failed to retrieve data. Status code: {response.status_code}")
     pass
 
-def getFullSchedule(season:str='20242025'):
+def getFullSchedule(season:str='20242025') -> Dict[int, Game] :
+    """
+    Gets the full season schedule.  Have not found an endpoint that will 
+    do this in one call, so we're looping through all teams (in parallel) 
+    to get the full league schedule...
+    """
     def process_team(tm):
         data = getTeamSchedule(tm, season)
         if data is not None:

@@ -27,7 +27,6 @@ def cli(team, holder):
     click.echo(f"CURRENT BELT HOLDER: {holder}")
     click.echo(f"{len(games)-1} GAMES UNTIL `{team}` HAS A SHOT AT THE BELT")
     click.echo(path)
-    print(len(getFullSchedule(SEASON)))
 
 
 class ExcelDate:
@@ -77,6 +76,7 @@ class Schedule(TitleBelt):
         self.belt_holder = belt_holder
         if from_date:
             self.set_from_date(from_date)
+            
         # Parse the CSV schedule file
         with open(SCHEDULE_FILE, "r") as file:
             csv_reader = csv.reader(file)
