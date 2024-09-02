@@ -1,5 +1,5 @@
 import csv
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 from textwrap import dedent
 from typing import Union
@@ -10,6 +10,7 @@ import click
 EXCEL_EPOCH_DATE = date(1900, 1, 1)
 SCHEDULE_FILE = Path(__file__).parent / "static" / "schedule_2024_2025.csv"
 SEASON = '20242025'
+INITIAL_BELT_HOLDER = 'FLA'
 
 @click.command()
 @click.option("--team", default="VAN", required=True)
@@ -76,23 +77,19 @@ class Schedule(TitleBelt):
         self.belt_holder = belt_holder
         if from_date:
             self.set_from_date(from_date)
+
+        # Get Schedule From API
+        leagueSchedule = getFullSchedule(SEASON)
+
+        for game in leagueSchedule:
+            game_date_obj = datetime.strptime(game['gameDate'],"%Y-%m-%d" )
             
-        # Parse the CSV schedule file
-        with open(SCHEDULE_FILE, "r") as file:
-            csv_reader = csv.reader(file)
-
-            # Convert the CSV data to a list of lists
-            schedule_array = [row for row in csv_reader]
-
-            # Remove the header and validate data
-            header = schedule_array.pop(0)
-            assert header[1] == "DATE"
-            assert header[2] == "AWAY"
-            assert header[3] == "HOME"
-
-            for game in schedule_array:
-                match = Match(game[3], game[2], int(game[1]))
-                self.games.append(match)
+            match = Match(
+                game['homeTeam']['abbrev'], 
+                game['awayTeam']['abbrev'],
+                ExcelDate(date_obj=game_date_obj.date()).serial_date
+            )
+            self.games.append(match)
     
     def __str__(self):
         return dedent(f""" \
