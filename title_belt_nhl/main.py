@@ -4,6 +4,7 @@ from pathlib import Path
 from textwrap import dedent
 from typing import Union
 from title_belt_nhl.service.nhl_api import getFullSchedule
+from title_belt_nhl.models.nhl_team_schedule_response import Game
 
 import click
 
@@ -14,12 +15,11 @@ INITIAL_BELT_HOLDER = 'FLA'
 
 @click.command()
 @click.option("--team", default="VAN", required=True)
-@click.option("--holder", "--belt-holder", default="PIT", required=True)
-def cli(team, holder):
+def cli(team):
     click.echo(f"Calculating shortest path for {team} to challenge for the belt...")
-    click.echo(f"The current belt holder is {holder}.")
 
-    schedule = Schedule(team, holder)
+    schedule = Schedule(team)
+    holder = schedule.belt_holder
 
     path = schedule.find_nearest_path([holder], holder)
     games = path.split("vs")
@@ -45,14 +45,6 @@ class ExcelDate:
             self.date_obj = date.fromordinal(EXCEL_EPOCH_DATE.toordinal() + serial_date - 1)
             self.serial_date = serial_date
 
-class TitleBelt:
-    team: str
-    belt_holder: str
-
-    def __init__(self, team, belt_holder):
-        self.team = team
-        self.belt_holder = belt_holder
-
 
 class Match:
     home: str
@@ -68,18 +60,20 @@ class Match:
         return f"[{self.home} vs {self.away}]"
 
 
-class Schedule(TitleBelt):
+class Schedule():
+    team: str
+    belt_holder: str
     games: list[Match] = []
     from_date: ExcelDate = ExcelDate(date_obj=date.today())
 
-    def __init__(self, team, belt_holder, from_date: Union[date, int] = None):
+    def __init__(self, team, from_date: Union[date, int] = None):
         self.team = team
-        self.belt_holder = belt_holder
         if from_date:
             self.set_from_date(from_date)
 
-        # Get Schedule From API
+        # Get Schedule From API and determine current belt holder
         leagueSchedule = getFullSchedule(SEASON)
+        self.belt_holder = Schedule.find_current_belt_holder(leagueSchedule)
 
         for game in leagueSchedule:
             game_date_obj = datetime.strptime(game['gameDate'],"%Y-%m-%d" )
@@ -140,7 +134,30 @@ class Schedule(TitleBelt):
                 newTeams, path_string, cur_match.date
             )
         return path_string
+    
+    def is_game_complete(game: Game) -> bool:
+        gameState = game['gameState'].upper()
+        return gameState == 'OFF' or gameState == 'FINAL'
+    
+    def determine_winning_team(game: Game) -> str:
+        homeScore = game['homeTeam']['score']
+        awayScore = game['awayteam']['score']
+        if homeScore > awayScore:
+            return game['homeTeam']['abbrev']
+        elif awayScore > homeScore:
+            return game['awayteam']['abbrev']
+        else:
+            return None
+    
+    def find_current_belt_holder(leagueSchedule: list[Game]) -> str:
+        cur_belt_holder = INITIAL_BELT_HOLDER
+        completed_games: list[Game] = list(filter(lambda x: Schedule.is_game_complete(x), leagueSchedule))
 
+        for cg in completed_games:
+            winningTeam = Schedule.determine_winning_team(cg)
+            if winningTeam is not None:
+                cur_belt_holder = winningTeam
+        return cur_belt_holder
 
 if __name__ == "__main__":
     cli()
