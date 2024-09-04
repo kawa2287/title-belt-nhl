@@ -36,9 +36,7 @@ def getFullSchedule(season:str='20242025') -> List[Game] :
             leagueSchedule.update(future.result())
 
     # Create an array of `Game` and sort 
-    gameList : list[Game] = []
-    for id in leagueSchedule:
-        gameList.append(leagueSchedule[id])
+    gameList: list[Game] = [leagueSchedule[id] for id in leagueSchedule]
 
     gameList.sort(key=lambda game: game['gameDate'])
     return gameList
