@@ -1,6 +1,6 @@
 from datetime import date
 
-EXCEL_EPOCH_DATE = date(1900, 1, 1)
+EXCEL_EPOCH_DATE: date = date(1900, 1, 1)
 
 
 class ExcelDate:
