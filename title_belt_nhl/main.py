@@ -1,29 +1,29 @@
 import csv
 from datetime import date, datetime
-from pathlib import Path
 from textwrap import dedent
-from typing import Union
+from typing import Union, Optional
 from title_belt_nhl.service.nhl_api import getFullSchedule
 from title_belt_nhl.models.nhl_team_schedule_response import Game
 
 import click
 
 EXCEL_EPOCH_DATE = date(1900, 1, 1)
-SEASON = '20242025'
 INITIAL_BELT_HOLDER = 'FLA'
 
 @click.command()
 @click.option("--team", default="VAN", required=True)
-def cli(team):
+@click.option("--season", default=None, required=False)
+def cli(team, season):
     click.echo(f"Calculating shortest path for {team} to challenge for the belt...")
 
-    schedule = Schedule(team)
+    schedule = Schedule(team, season)
     holder = schedule.belt_holder
 
     path = schedule.find_nearest_path([holder], holder)
     games = path.split("vs")
 
     click.echo("=============================================================")
+    click.echo(f"CURRENT SEASON: {schedule.season}")
     click.echo(f"CURRENT BELT HOLDER: {holder}")
     click.echo(f"{len(games)-1} GAMES UNTIL `{team}` HAS A SHOT AT THE BELT")
     click.echo(path)
@@ -64,14 +64,20 @@ class Schedule():
     belt_holder: str
     games: list[Match] = []
     from_date: ExcelDate = ExcelDate(date_obj=date.today())
+    season: str
 
-    def __init__(self, team, from_date: Union[date, int] = None):
+    def __init__(self, team, season: Optional[str]=None, from_date: Union[date, int] = None):
         self.team = team
         if from_date:
             self.set_from_date(from_date)
 
+        if season is None:
+            base_year = date.today().year if date.today().month > 6 else date.today().year - 1
+            season = f"{base_year}{base_year+1}"
+        self.season = season
+        
         # Get Schedule From API and determine current belt holder
-        leagueSchedule = getFullSchedule(SEASON)
+        leagueSchedule = getFullSchedule(season)
         self.belt_holder = Schedule.find_current_belt_holder(leagueSchedule, INITIAL_BELT_HOLDER)
 
         for game in leagueSchedule:
