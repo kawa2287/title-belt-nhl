@@ -3,7 +3,6 @@ from title_belt_nhl.static.nhl_tms import nhl_team_abbvs
 from title_belt_nhl.models.nhl_team_schedule_response import ApiTeamScheduleResponse, Game
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from functools import lru_cache
-from typing import Dict, List
 
 
 @lru_cache(maxsize=None)
@@ -14,10 +13,10 @@ def getTeamSchedule(tm_abv:str, season:str) -> ApiTeamScheduleResponse:
     if response.status_code == 200:
         return response.json()
     else:
-        print(f"Failed to retrieve data. Status code: {response.status_code}")
+        raise ConnectionError(f"Failed to retrieve data. Status code: {response.status_code}")
     pass
 
-def getFullSchedule(season:str='20242025') -> List[Game] :
+def getFullSchedule(season:str='20242025') -> list[Game] :
     """
     Gets the full season schedule.  Have not found an endpoint that will 
     do this in one call, so we're looping through all teams (in parallel) 

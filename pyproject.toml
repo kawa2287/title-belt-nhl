@@ -9,7 +9,6 @@ include = ["title_belt_nhl/static/config.json", "title_belt_nhl/static/schedule.
 
 [tool.poetry.scripts]
 title-belt-nhl = 'title_belt_nhl.main:cli'
-test = "pytest"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -48,4 +47,4 @@ line-length = 90
 classmethod-decorators = ["classmethod", "pydantic.validator"]
 
 [tool.pytest.ini_options]
-pythonpath = ["."]
+pythonpath = ["./title_belt_nhl"]
