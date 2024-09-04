@@ -30,4 +30,4 @@ Options:
 
 ## Testing
 
-Run `poetry run pytest` to run through any tests in the `./tests` folder
+Run `poetry run pytest` to run through any tests in the `./title_belt_nhl/tests` folder
