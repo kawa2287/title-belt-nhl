@@ -125,8 +125,8 @@ class Schedule:
     ) -> str:
         """
         Given an array of `Game` and the Abbreviation of the season start belt holder,
-        Return the current belt holder based off of game results.  This assumes the list of games is
-        pre-sorted by date.
+        Return the current belt holder based off of game results. This assumes the list
+        of games is pre-sorted by date.
         """
         cur_belt_holder = start_belt_holder
         completed_games: list[Game] = list(

@@ -30,5 +30,5 @@ nhl_team_abbvs = [
     "VGK",
     "SJS",
     "EDM",
-    "WSH"
+    "WSH",
 ]
