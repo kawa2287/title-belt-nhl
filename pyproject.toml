@@ -15,9 +15,8 @@ python = "^3.10"
 click = "^8.1.7"
 requests = "^2.32.3"
 
-
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.1.5"
+ruff = ">=0.6.0"
 pytest = "^8.3.2"
 
 [build-system]
@@ -26,8 +25,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
 # # Enable Pyflakes `E` and `F` codes by default.
-select = ["F", "E", "W", "I", "N", "YTT", "A", "C4", "RET", "SIM"]
-ignore = [
+lint.select = ["F", "E", "W", "I", "N", "YTT", "A", "C4", "RET", "SIM"]
+lint.ignore = [
     "A003",
     "E402",
     "E741",
@@ -43,7 +42,7 @@ ignore = [
     "SIM102",
 ]
 line-length = 90
-[tool.ruff.pep8-naming]
+[tool.ruff.lint.pep8-naming]
 classmethod-decorators = ["classmethod", "pydantic.validator"]
 
 [tool.pytest.ini_options]
