@@ -1,4 +1,5 @@
 # Title Belt Calculator
+
 Finds the shortest path to having a shot at the belt for a given team and belt holder.
 
 ## Setup
@@ -27,7 +28,6 @@ Usage: title-belt-nhl [OPTIONS]
 
 Options:
   --team TEXT
-  --holder, --belt-holder TEXT
   --help                        Show this message and exit.
 ```
 
@@ -73,3 +73,7 @@ Options:
         ```
         Python  3.10.14 ("title-belt-nhl-asdf1234-py3.10": poetry)
         ```
+
+## Testing
+
+Run `poetry run pytest` to run through any tests in the `./title_belt_nhl/tests` folder
