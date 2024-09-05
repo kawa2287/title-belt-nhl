@@ -6,18 +6,17 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Upload Python Package
+name: Python Package
 
 on:
   push
-
 
 permissions:
   contents: read
 
 jobs:
   build:
-    name: Build distribution
+    name: Test and Build distribution
     runs-on: ubuntu-latest
 
     steps:
@@ -31,6 +30,15 @@ jobs:
         python -m pip install --upgrade pip
         pip install poetry
         poetry install --with dev
+    - name: Lint with Ruff
+      run: |
+        poetry run ruff check --output-format=github title_belt_nhl
+    - name: Format with Ruff
+      run: |
+        poetry run ruff format --check title_belt_nhl
+    - name: Test with pytest
+      run: |
+        poetry run pytest
     - name: Build package
       run: poetry build
     - name: Store the distribution packages
