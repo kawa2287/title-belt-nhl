@@ -80,11 +80,11 @@ class Schedule():
         self.belt_holder = Schedule.find_current_belt_holder(leagueSchedule, INITIAL_BELT_HOLDER)
 
         for game in leagueSchedule:
-            game_date_obj = datetime.strptime(game['gameDate'],"%Y-%m-%d" )
+            game_date_obj = datetime.strptime(game.gameDate,"%Y-%m-%d" )
             
             match = Match(
-                game['homeTeam']['abbrev'], 
-                game['awayTeam']['abbrev'],
+                game.homeTeam['abbrev'], 
+                game.awayTeam['abbrev'],
                 ExcelDate(date_obj=game_date_obj.date()).serial_date
             )
             self.games.append(match)
@@ -139,26 +139,6 @@ class Schedule():
             )
         return path_string
     
-    def is_game_complete(game: Game) -> bool:
-        """
-        Checks if the given `Game` is complete.  I *believe* the only enums are `FINAL` and `OFF`
-        per a quick check on previous completed season API responses
-        """
-        gameState = game['gameState'].upper()
-        return gameState == 'OFF' or gameState == 'FINAL'
-    
-    def determine_winning_team(game: Game) -> str:
-        homeScore = game['homeTeam']['score']
-        awayScore = game['awayTeam']['score']
-        if homeScore > awayScore:
-            return game['homeTeam']['abbrev']
-        elif awayScore > homeScore:
-            return game['awayTeam']['abbrev']
-        else:
-            return None
-        
-    def is_title_belt_game(game:Game, cur_belt_holder: str) -> bool:
-            return  game['homeTeam']['abbrev'] == cur_belt_holder or game['awayTeam']['abbrev'] == cur_belt_holder
         
     def find_current_belt_holder(leagueSchedule: list[Game], start_belt_holder: str) -> str:
         """
@@ -167,11 +147,11 @@ class Schedule():
         pre-sorted by date.
         """
         cur_belt_holder = start_belt_holder
-        completed_games: list[Game] = list(filter(lambda x: Schedule.is_game_complete(x), leagueSchedule))
+        completed_games: list[Game] = list(filter(lambda x: x.is_game_complete() , leagueSchedule))
 
         for cg in completed_games:
-            winningTeam = Schedule.determine_winning_team(cg)
-            if winningTeam is not None and Schedule.is_title_belt_game(cg, cur_belt_holder):
+            winningTeam = cg.determine_winning_team()
+            if winningTeam is not None and cg.is_title_belt_game(cur_belt_holder):
                 cur_belt_holder = winningTeam
         return cur_belt_holder
 

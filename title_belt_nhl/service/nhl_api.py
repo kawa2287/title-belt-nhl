@@ -16,7 +16,7 @@ def getTeamSchedule(tm_abv:str, season:str) -> ApiTeamScheduleResponse:
         raise ConnectionError(f"Failed to retrieve data. Status code: {response.status_code}")
     pass
 
-def getFullSchedule(season:str='20242025') -> list[Game] :
+def getFullSchedule(season:str) -> list[Game] :
     """
     Gets the full season schedule.  Have not found an endpoint that will 
     do this in one call, so we're looping through all teams (in parallel) 
@@ -35,7 +35,8 @@ def getFullSchedule(season:str='20242025') -> list[Game] :
             leagueSchedule.update(future.result())
 
     # Create an array of `Game` and sort 
-    gameList: list[Game] = [leagueSchedule[id] for id in leagueSchedule]
+    gameList: list[Game] = [Game.from_dict(leagueSchedule[id]) for id in leagueSchedule]
 
-    gameList.sort(key=lambda game: game['gameDate'])
+    gameList.sort(key=lambda game: game.gameDate)
+
     return gameList
