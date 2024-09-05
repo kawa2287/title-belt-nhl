@@ -13,10 +13,12 @@ title-belt-nhl = 'title_belt_nhl.main:cli'
 [tool.poetry.dependencies]
 python = "^3.10"
 click = "^8.1.7"
+requests = "^2.32.3"
 
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.5"
+pytest = "^8.3.2"
 
 [build-system]
 requires = ["poetry-core"]
@@ -43,3 +45,6 @@ ignore = [
 line-length = 90
 [tool.ruff.pep8-naming]
 classmethod-decorators = ["classmethod", "pydantic.validator"]
+
+[tool.pytest.ini_options]
+pythonpath = ["./title_belt_nhl"]

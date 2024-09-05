@@ -1,28 +1,28 @@
-import csv
-from datetime import date
-from pathlib import Path
+from datetime import date, datetime
 from textwrap import dedent
-from typing import Union
+from typing import Union, Optional
+from title_belt_nhl.service.nhl_api import getFullSchedule
+from title_belt_nhl.models.nhl_team_schedule_response import Game
 
 import click
 
 EXCEL_EPOCH_DATE = date(1900, 1, 1)
-SCHEDULE_FILE = Path(__file__).parent / "static" / "schedule_2024_2025.csv"
-
+INITIAL_BELT_HOLDER = 'FLA'
 
 @click.command()
 @click.option("--team", default="VAN", required=True)
-@click.option("--holder", "--belt-holder", default="PIT", required=True)
-def cli(team, holder):
+@click.option("--season", default=None, required=False)
+def cli(team, season):
     click.echo(f"Calculating shortest path for {team} to challenge for the belt...")
-    click.echo(f"The current belt holder is {holder}.")
 
-    schedule = Schedule(team, holder)
+    schedule = Schedule(team, season)
+    holder = schedule.belt_holder
 
     path = schedule.find_nearest_path([holder], holder)
     games = path.split("vs")
 
     click.echo("=============================================================")
+    click.echo(f"CURRENT SEASON: {schedule.season}")
     click.echo(f"CURRENT BELT HOLDER: {holder}")
     click.echo(f"{len(games)-1} GAMES UNTIL `{team}` HAS A SHOT AT THE BELT")
     click.echo(path)
@@ -43,14 +43,6 @@ class ExcelDate:
             self.date_obj = date.fromordinal(EXCEL_EPOCH_DATE.toordinal() + serial_date - 1)
             self.serial_date = serial_date
 
-class TitleBelt:
-    team: str
-    belt_holder: str
-
-    def __init__(self, team, belt_holder):
-        self.team = team
-        self.belt_holder = belt_holder
-
 
 class Match:
     home: str
@@ -66,31 +58,36 @@ class Match:
         return f"[{self.home} vs {self.away}]"
 
 
-class Schedule(TitleBelt):
+class Schedule():
+    team: str
+    belt_holder: str
     games: list[Match] = []
     from_date: ExcelDate = ExcelDate(date_obj=date.today())
+    season: str
 
-    def __init__(self, team, belt_holder, from_date: Union[date, int] = None):
+    def __init__(self, team, season: Optional[str]=None, from_date: Union[date, int] = None):
         self.team = team
-        self.belt_holder = belt_holder
         if from_date:
             self.set_from_date(from_date)
-        # Parse the CSV schedule file
-        with open(SCHEDULE_FILE, "r") as file:
-            csv_reader = csv.reader(file)
 
-            # Convert the CSV data to a list of lists
-            schedule_array = [row for row in csv_reader]
+        if season is None:
+            base_year = date.today().year if date.today().month > 6 else date.today().year - 1
+            season = f"{base_year}{base_year+1}"
+        self.season = season
+        
+        # Get Schedule From API and determine current belt holder
+        leagueSchedule = getFullSchedule(season)
+        self.belt_holder = Schedule.find_current_belt_holder(leagueSchedule, INITIAL_BELT_HOLDER)
 
-            # Remove the header and validate data
-            header = schedule_array.pop(0)
-            assert header[1] == "DATE"
-            assert header[2] == "AWAY"
-            assert header[3] == "HOME"
-
-            for game in schedule_array:
-                match = Match(game[3], game[2], int(game[1]))
-                self.games.append(match)
+        for game in leagueSchedule:
+            game_date_obj = datetime.strptime(game.gameDate,"%Y-%m-%d" )
+            
+            match = Match(
+                game.homeTeam['abbrev'], 
+                game.awayTeam['abbrev'],
+                ExcelDate(date_obj=game_date_obj.date()).serial_date
+            )
+            self.games.append(match)
     
     def __str__(self):
         return dedent(f""" \
@@ -141,7 +138,22 @@ class Schedule(TitleBelt):
                 newTeams, path_string, cur_match.date
             )
         return path_string
+    
+        
+    def find_current_belt_holder(leagueSchedule: list[Game], start_belt_holder: str) -> str:
+        """
+        Given an array of `Game` and the Abbreviation of the season start belt holder,
+        Return the current belt holder based off of game results.  This assumes the list of games is
+        pre-sorted by date.
+        """
+        cur_belt_holder = start_belt_holder
+        completed_games: list[Game] = list(filter(lambda x: x.is_game_complete() , leagueSchedule))
 
+        for cg in completed_games:
+            winningTeam = cg.determine_winning_team()
+            if winningTeam is not None and cg.is_title_belt_game(cur_belt_holder):
+                cur_belt_holder = winningTeam
+        return cur_belt_holder
 
 if __name__ == "__main__":
     cli()
