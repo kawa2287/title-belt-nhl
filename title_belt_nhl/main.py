@@ -4,8 +4,8 @@ from title_belt_nhl.schedule import Schedule
 
 
 @click.command()
-@click.option("--team", default="VAN", required=True)
-@click.option("--season", default=None, required=False)
+@click.option("--team", default="VAN", required=True, help="Team abbrev. (ex: CHI).")
+@click.option("--season", default=None, required=False, help="Example: 20242025.")
 def cli(team, season):
     click.echo(f"Calculating shortest path for {team} to challenge for the belt...")
 

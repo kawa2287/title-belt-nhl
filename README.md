@@ -27,8 +27,9 @@ $ title-belt-nhl --help
 Usage: title-belt-nhl [OPTIONS]
 
 Options:
-  --team TEXT
-  --help                        Show this message and exit.
+  --team TEXT    [required]
+  --season TEXT
+  --help         Show this message and exit.
 ```
 
 ## Linting and Formatting
