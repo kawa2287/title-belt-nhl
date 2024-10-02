@@ -18,7 +18,7 @@
     }
   },
   {
-    "id": 2023010045,
+    "id": 2023010046,
     "season": 20232024,
     "gameType": 2,
     "gameDate": "2023-09-28",
@@ -36,7 +36,7 @@
     }
   },
   {
-    "id": 2023010045,
+    "id": 2023010047,
     "season": 20232024,
     "gameType": 2,
     "gameDate": "2023-09-29",
@@ -53,9 +53,8 @@
       "score": 1
     }
   },
-
   {
-    "id": 2023010045,
+    "id": 2023010048,
     "season": 20232024,
     "gameType": 2,
     "gameDate": "2023-09-30",
@@ -68,6 +67,38 @@
     "homeTeam": {
       "id": 16,
       "abbrev": "CHI"
+    }
+  },
+  {
+    "id": 2023010049,
+    "season": 20232024,
+    "gameType": 2,
+    "gameDate": "2023-09-30",
+    "gameState": "FUT",
+    "gameScheduleState": "OK",
+    "awayTeam": {
+      "id": 19,
+      "abbrev": "PIT"
+    },
+    "homeTeam": {
+      "id": 16,
+      "abbrev": "DAL"
+    }
+  },
+  {
+    "id": 2023010050,
+    "season": 20232024,
+    "gameType": 2,
+    "gameDate": "2023-10-01",
+    "gameState": "FUT",
+    "gameScheduleState": "OK",
+    "awayTeam": {
+      "id": 19,
+      "abbrev": "DAL"
+    },
+    "homeTeam": {
+      "id": 16,
+      "abbrev": "VAN"
     }
   }
 ]

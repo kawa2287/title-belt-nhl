@@ -12,11 +12,14 @@ def cli(team, season):
     schedule = Schedule(team, season)
     holder = schedule.belt_holder
 
-    path = schedule.find_nearest_path([holder], holder)
-    games = path.split("vs")
-
     click.echo("=============================================================")
-    click.echo(f"CURRENT SEASON: {schedule.season}")
+    click.echo(f"CURRENT SEASON: {schedule.get_season_pretty()}")
     click.echo(f"CURRENT BELT HOLDER: {holder}")
-    click.echo(f"{len(games)-1} GAMES UNTIL `{team}` HAS A SHOT AT THE BELT")
-    click.echo(path)
+
+    if team == holder:
+        click.echo(f"{team} ALREADY HAS THE BELT!")
+    else:
+        path_matches = schedule.find_nearest_path_games()
+        click.echo(f"{len(path_matches)} GAMES UNTIL `{team}` HAS A SHOT AT THE BELT")
+        for match in path_matches:
+            click.echo(f"\t{match.date_obj} | {match.belt_holder} -> {match}")
