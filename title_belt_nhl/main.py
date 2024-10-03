@@ -19,6 +19,11 @@ def cli(team, season):
     if team == holder:
         click.echo(f"{team} ALREADY HAS THE BELT!")
     else:
+        # path = schedule.find_nearest_path_str([holder], holder)
+        # games = path.split("vs")
+        # click.echo(f"{len(games)-1} GAMES UNTIL `{team}` HAS A SHOT AT THE BELT")
+        # click.echo(path)
+
         path_matches = schedule.find_nearest_path_games()
         click.echo(f"{len(path_matches)} GAMES UNTIL `{team}` HAS A SHOT AT THE BELT")
         for match in path_matches:

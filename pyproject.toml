@@ -18,6 +18,7 @@ requests = "^2.32.3"
 [tool.poetry.group.dev.dependencies]
 ruff = ">=0.6.0"
 pytest = "^8.3.2"
+pytest-ruff = "^0.4.1"
 
 [build-system]
 requires = ["poetry-core"]
