@@ -1,4 +1,4 @@
-import click
+import rich_click as click
 
 from title_belt_nhl.schedule import Schedule
 
@@ -6,7 +6,10 @@ team_option = click.option(
     "--team", default="VAN", required=True, help="Team abbrev. (ex: CHI)."
 )
 season_option = click.option(
-    "--season", default=None, required=False, help="Example: 20242025."
+    "--season",
+    default=None,
+    required=False,
+    help="Defaults to current season if not specified. Example: 20242025.",
 )
 
 
