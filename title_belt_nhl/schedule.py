@@ -56,7 +56,10 @@ def traverse_matches_backwards(
     while cur_match:
         path_matches.insert(0, cur_match)
 
+        # this line assumes that only away_last *or* home_last is set
+        # and it matches the belt_holder
         last_match = cur_match.away_last or cur_match.home_last
+
         if not last_match:
             break
         cur_match = last_match

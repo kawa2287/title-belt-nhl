@@ -30,7 +30,14 @@ Options:
   --team TEXT    [required]
   --season TEXT
   --help         Show this message and exit.
+
+Commands:
+  path
+  path-alt
 ```
+
+* use `path-alt` to get a string showing list of games
+* use `path` to get the list of games using a diff algorithm
 
 ## Linting and Formatting
 
