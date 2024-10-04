@@ -1,3 +1,4 @@
+import copy
 from datetime import date, datetime
 from pathlib import Path
 from textwrap import dedent
@@ -139,23 +140,32 @@ class Schedule:
                 match.belt_holder = current_belt_holder
                 return match
 
-    def find_nearest_path_str(self, teams, path_string, from_date=None) -> str:
-        newTeams = []
-        if from_date:
-            self.set_from_date(from_date)
-        for tm in teams:
-            splits = tm.split(" -> ")
-            cur_match: Match = self.find_match(splits[-1], self.from_date)
+    def find_nearest_path_v2(self, scenarios: list[list[Match]]) -> list[Match]:
+        newScenarios: list[list[Match]] = []
+
+        for s in scenarios:
+            cur_match = s[-1]
             if cur_match:
                 if cur_match.away == self.team or cur_match.home == self.team:
-                    return f"{tm} -> {cur_match}"
-                newTeams.append(f"{tm} -> {cur_match} -> {cur_match.away}")
-                newTeams.append(f"{tm} -> {cur_match} -> {cur_match.home}")
+                    # found a path to team
+                    return s
 
-        path_string = self.find_nearest_path_str(
-            newTeams, path_string, cur_match.serial_date
-        )
-        return path_string
+                # Add new Scenario branches
+                newScenarios.append(
+                    self.createNewScenarioBranch(cur_match.home, cur_match.serial_date, s)
+                )
+                newScenarios.append(
+                    self.createNewScenarioBranch(cur_match.away, cur_match.serial_date, s)
+                )
+
+        shortestPath = self.find_nearest_path_v2(newScenarios)
+        return shortestPath
+
+    def createNewScenarioBranch(self, team: str, matchDate: int, scenario: list[Match]):
+        scenario_copy = copy.deepcopy(scenario)
+        next_match = self.find_match(team, matchDate)
+        scenario_copy.append(next_match)
+        return scenario_copy
 
     def find_nearest_path_games(self):
         """Find the shortest path from the current belt holder's next game until
