@@ -1,0 +1,1334 @@
+[
+    {
+        "id": 2024020001,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-04",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 1,
+            "abbrev": "NJD",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 7,
+            "abbrev": "BUF",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020002,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-05",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 7,
+            "abbrev": "BUF",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 1,
+            "abbrev": "NJD",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020005,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-08",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 16,
+            "abbrev": "CHI",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 59,
+            "abbrev": "UTA",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020004,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-08",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 6,
+            "abbrev": "BOS",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 13,
+            "abbrev": "FLA",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020003,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-08",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 19,
+            "abbrev": "STL",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 55,
+            "abbrev": "SEA",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020009,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-09",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 20,
+            "abbrev": "CGY",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 23,
+            "abbrev": "VAN",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020008,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-09",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 52,
+            "abbrev": "WPG",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 22,
+            "abbrev": "EDM",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020010,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-09",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 21,
+            "abbrev": "COL",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 54,
+            "abbrev": "VGK",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020007,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-09",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 3,
+            "abbrev": "NYR",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 5,
+            "abbrev": "PIT",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020006,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-09",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 10,
+            "abbrev": "TOR",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 8,
+            "abbrev": "MTL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020015,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-10",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 10,
+            "abbrev": "TOR",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 1,
+            "abbrev": "NJD",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020016,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-10",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 59,
+            "abbrev": "UTA",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 2,
+            "abbrev": "NYI",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020012,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-10",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 26,
+            "abbrev": "LAK",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 7,
+            "abbrev": "BUF",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020011,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-10",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 8,
+            "abbrev": "MTL",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 6,
+            "abbrev": "BOS",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020018,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-10",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 29,
+            "abbrev": "CBJ",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 30,
+            "abbrev": "MIN",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020019,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-10",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 19,
+            "abbrev": "STL",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 28,
+            "abbrev": "SJS",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020014,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-10",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 5,
+            "abbrev": "PIT",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 17,
+            "abbrev": "DET",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020013,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-10",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 13,
+            "abbrev": "FLA",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 9,
+            "abbrev": "OTT",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020017,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-10",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 25,
+            "abbrev": "DAL",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 18,
+            "abbrev": "NSH",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020020,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-11",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 14,
+            "abbrev": "TBL",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 12,
+            "abbrev": "CAR",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020021,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-11",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 16,
+            "abbrev": "CHI",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 52,
+            "abbrev": "WPG",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020022,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-11",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 4,
+            "abbrev": "PHI",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 23,
+            "abbrev": "VAN",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020023,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-11",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 19,
+            "abbrev": "STL",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 54,
+            "abbrev": "VGK",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020029,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-12",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 12,
+            "abbrev": "CAR",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 14,
+            "abbrev": "TBL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020036,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-12",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 16,
+            "abbrev": "CHI",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 22,
+            "abbrev": "EDM",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020031,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-12",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 1,
+            "abbrev": "NJD",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 15,
+            "abbrev": "WSH",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020032,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-12",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 2,
+            "abbrev": "NYI",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 25,
+            "abbrev": "DAL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020035,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-12",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 4,
+            "abbrev": "PHI",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 20,
+            "abbrev": "CGY",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020025,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-12",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 13,
+            "abbrev": "FLA",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 7,
+            "abbrev": "BUF",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020034,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-12",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 29,
+            "abbrev": "CBJ",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 21,
+            "abbrev": "COL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020024,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-12",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 26,
+            "abbrev": "LAK",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 6,
+            "abbrev": "BOS",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020030,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-12",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 59,
+            "abbrev": "UTA",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 3,
+            "abbrev": "NYR",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020033,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-12",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 55,
+            "abbrev": "SEA",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 30,
+            "abbrev": "MIN",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020027,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-12",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 9,
+            "abbrev": "OTT",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 8,
+            "abbrev": "MTL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020028,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-12",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 18,
+            "abbrev": "NSH",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 17,
+            "abbrev": "DET",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020037,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-12",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 24,
+            "abbrev": "ANA",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 28,
+            "abbrev": "SJS",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020026,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-12",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 5,
+            "abbrev": "PIT",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 10,
+            "abbrev": "TOR",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020040,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-13",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 20,
+            "abbrev": "CGY",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 22,
+            "abbrev": "EDM",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020038,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-13",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 30,
+            "abbrev": "MIN",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 52,
+            "abbrev": "WPG",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020039,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-13",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 55,
+            "abbrev": "SEA",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 25,
+            "abbrev": "DAL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020041,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-13",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 24,
+            "abbrev": "ANA",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 54,
+            "abbrev": "VGK",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020044,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-14",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 59,
+            "abbrev": "UTA",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 1,
+            "abbrev": "NJD",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020047,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-14",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 2,
+            "abbrev": "NYI",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 21,
+            "abbrev": "COL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020042,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-14",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 13,
+            "abbrev": "FLA",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 6,
+            "abbrev": "BOS",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020045,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-14",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 17,
+            "abbrev": "DET",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 3,
+            "abbrev": "NYR",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020043,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-14",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 26,
+            "abbrev": "LAK",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 9,
+            "abbrev": "OTT",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020046,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-14",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 5,
+            "abbrev": "PIT",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 8,
+            "abbrev": "MTL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020050,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-15",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 1,
+            "abbrev": "NJD",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 12,
+            "abbrev": "CAR",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020055,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-15",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 16,
+            "abbrev": "CHI",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 20,
+            "abbrev": "CGY",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020048,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-15",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 23,
+            "abbrev": "VAN",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 14,
+            "abbrev": "TBL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020056,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-15",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 4,
+            "abbrev": "PHI",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 22,
+            "abbrev": "EDM",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020052,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-15",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 30,
+            "abbrev": "MIN",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 19,
+            "abbrev": "STL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020053,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-15",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 55,
+            "abbrev": "SEA",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 18,
+            "abbrev": "NSH",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020051,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-15",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 13,
+            "abbrev": "FLA",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 29,
+            "abbrev": "CBJ",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020054,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-15",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 28,
+            "abbrev": "SJS",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 25,
+            "abbrev": "DAL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020049,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-15",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 54,
+            "abbrev": "VGK",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 15,
+            "abbrev": "WSH",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020057,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-16",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 7,
+            "abbrev": "BUF",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 5,
+            "abbrev": "PIT",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020059,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-16",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 6,
+            "abbrev": "BOS",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 21,
+            "abbrev": "COL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020058,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-16",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 26,
+            "abbrev": "LAK",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 10,
+            "abbrev": "TOR",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020060,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-16",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 59,
+            "abbrev": "UTA",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 24,
+            "abbrev": "ANA",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020070,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-17",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 28,
+            "abbrev": "SJS",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 16,
+            "abbrev": "CHI",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020062,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-17",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 1,
+            "abbrev": "NJD",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 9,
+            "abbrev": "OTT",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020068,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-17",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 2,
+            "abbrev": "NYI",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 19,
+            "abbrev": "STL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020067,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-17",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 7,
+            "abbrev": "BUF",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 29,
+            "abbrev": "CBJ",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020064,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-17",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 54,
+            "abbrev": "VGK",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 14,
+            "abbrev": "TBL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020065,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-17",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 23,
+            "abbrev": "VAN",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 13,
+            "abbrev": "FLA",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020063,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-17",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 3,
+            "abbrev": "NYR",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 17,
+            "abbrev": "DET",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020061,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-17",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 26,
+            "abbrev": "LAK",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 8,
+            "abbrev": "MTL",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020071,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-17",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 4,
+            "abbrev": "PHI",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 55,
+            "abbrev": "SEA",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020066,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-17",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 25,
+            "abbrev": "DAL",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 15,
+            "abbrev": "WSH",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020069,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-17",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 22,
+            "abbrev": "EDM",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 18,
+            "abbrev": "NSH",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020072,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-18",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 12,
+            "abbrev": "CAR",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 5,
+            "abbrev": "PIT",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020073,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-18",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 28,
+            "abbrev": "SJS",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 52,
+            "abbrev": "WPG",
+            "score": null
+        }
+    },
+    {
+        "id": 2024020074,
+        "season": 20242025,
+        "gameType": 2,
+        "gameDate": "2024-10-18",
+        "gameState": "FUT",
+        "gameScheduleState": "OK",
+        "awayTeam": {
+            "id": 24,
+            "abbrev": "ANA",
+            "score": null
+        },
+        "homeTeam": {
+            "id": 21,
+            "abbrev": "COL",
+            "score": null
+        }
+    }
+]

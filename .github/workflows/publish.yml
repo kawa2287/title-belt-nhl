@@ -38,7 +38,7 @@ jobs:
         poetry run ruff format --check title_belt_nhl
     - name: Test with pytest
       run: |
-        poetry run pytest
+        poetry run pytest --ruff --ruff-format
     - name: Build package
       run: poetry build
     - name: Store the distribution packages
