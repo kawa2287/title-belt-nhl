@@ -1,4 +1,4 @@
-import copy
+from copy import deepcopy
 from datetime import date, datetime
 from pathlib import Path
 from textwrap import dedent
@@ -132,16 +132,32 @@ class Schedule:
             self.set_from_date(from_date)
         return [g for g in self.matches if g.serial_date >= self.from_date.serial_date]
 
-    def find_match(self, current_belt_holder, from_date) -> Match:
+    def find_match(self, current_belt_holder, from_date) -> Match | None:
         for match in self.matches_after_date_inclusive(from_date=from_date):
             if (
                 match.away == current_belt_holder or match.home == current_belt_holder
             ) and self.from_date.serial_date < match.serial_date:
                 match.belt_holder = current_belt_holder
                 return match
+        return None
 
-    def find_nearest_path_v2(self, scenarios: list[list[Match]]) -> list[Match]:
+    def find_nearest_path_v2(
+        self, scenarios: list[list[Match]] | None = None
+    ) -> list[Match]:
+        """Find the shortest path from current belt holder to self.team. This is a
+        recursive function that branches out at a rate of 2^x by exploring each match
+        outcome of either home team winning or away team winning.  Recursion ends when
+        self.team is found, or when no further matches can be found"""
+
         newScenarios: list[list[Match]] = []
+
+        # Handle initial function call and find next match of the current belt holder
+        if scenarios is None:
+            scenarios = [[self.find_match(self.belt_holder, self.from_date)]]
+
+        # Handle when no further matches can be found
+        if len(scenarios) == 0:
+            return None
 
         for s in scenarios:
             cur_match = s[-1]
@@ -152,17 +168,23 @@ class Schedule:
 
                 # Add new Scenario branches
                 newScenarios.append(
-                    self.createNewScenarioBranch(cur_match.home, cur_match.serial_date, s)
+                    self.create_new_scenario_branch(
+                        cur_match.home, cur_match.serial_date, s
+                    )
                 )
                 newScenarios.append(
-                    self.createNewScenarioBranch(cur_match.away, cur_match.serial_date, s)
+                    self.create_new_scenario_branch(
+                        cur_match.away, cur_match.serial_date, s
+                    )
                 )
 
         shortestPath = self.find_nearest_path_v2(newScenarios)
         return shortestPath
 
-    def createNewScenarioBranch(self, team: str, matchDate: int, scenario: list[Match]):
-        scenario_copy = copy.deepcopy(scenario)
+    def create_new_scenario_branch(
+        self, team: str, matchDate: int, scenario: list[Match]
+    ):
+        scenario_copy = deepcopy(scenario)
         next_match = self.find_match(team, matchDate)
         scenario_copy.append(next_match)
         return scenario_copy

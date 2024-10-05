@@ -9,7 +9,6 @@ from title_belt_nhl.schedule import Match, Schedule
 
 MOCK_DATA_PATH = "./title_belt_nhl/tests/test_files/mock_league_schedule.json"
 MOCK_DATA_PATH_BIG = "./title_belt_nhl/tests/test_files/mock_league_schedule_big.json"
-MOCK_DATA_PATH_ALL = "./title_belt_nhl/tests/test_files/mock_league_schedule_all.json"
 
 
 @pytest.fixture()
@@ -24,14 +23,6 @@ def league_schedule():
 def league_schedule_big():
     # Open the file and load the JSON data
     with open(MOCK_DATA_PATH_BIG, "r") as file:
-        data = json.load(file)
-        return [Game.from_dict(game) for game in data]
-
-
-@pytest.fixture()
-def league_schedule_all():
-    # Open the file and load the JSON data
-    with open(MOCK_DATA_PATH_ALL, "r") as file:
         data = json.load(file)
         return [Game.from_dict(game) for game in data]
 
@@ -67,11 +58,7 @@ class TestSchedule:
         schedule = Schedule("VAN", from_date=date(2023, 9, 29))
         assert schedule.belt_holder == "PIT"
 
-        start_match = schedule.find_match(
-            schedule.belt_holder, schedule.from_date.serial_date
-        )
-
-        path_matches = schedule.find_nearest_path_v2([[start_match]])
+        path_matches = schedule.find_nearest_path_v2()
 
         for i, m in enumerate(path_matches):
             print(f"{path_matches[i].date_obj} {path_matches[i]}")
@@ -114,11 +101,7 @@ class TestSchedule:
         schedule = Schedule("CAR", from_date=date(2024, 10, 3))
         assert schedule.belt_holder == "FLA"
 
-        start_match = schedule.find_match(
-            schedule.belt_holder, schedule.from_date.serial_date
-        )
-
-        path_matches = schedule.find_nearest_path_v2([[start_match]])
+        path_matches = schedule.find_nearest_path_v2()
 
         for i, m in enumerate(path_matches):
             print(f"{path_matches[i].date_obj} {path_matches[i]}")
@@ -143,7 +126,7 @@ class TestSchedule:
 
         schedule = Schedule("CAR", from_date=date(2024, 10, 3))
         assert schedule.belt_holder == "FLA"
-        assert len(schedule.matches) == 74
+        assert len(schedule.matches) == 169
 
         path_matches = schedule.find_nearest_path_games()
         for i, m in enumerate(path_matches):
@@ -160,9 +143,9 @@ class TestSchedule:
             assert str(path_matches[i]) == str(m)
             assert path_matches[i].date_obj == m.date_obj
 
-    def test_find_nearest_path_v2(self, monkeypatch, league_schedule_all):
+    def test_find_nearest_path_v2(self, monkeypatch, league_schedule_big):
         m = Mock()
-        m.return_value = league_schedule_all
+        m.return_value = league_schedule_big
         monkeypatch.setattr("title_belt_nhl.schedule.getFullSchedule", m)
 
         monkeypatch.setattr("title_belt_nhl.schedule.INITIAL_BELT_HOLDER", "FLA")
@@ -170,11 +153,7 @@ class TestSchedule:
         schedule = Schedule("MIN", from_date=date(2024, 10, 3))
         assert schedule.belt_holder == "FLA"
 
-        start_match = schedule.find_match(
-            schedule.belt_holder, schedule.from_date.serial_date
-        )
-
-        path_matches = schedule.find_nearest_path_v2([[start_match]])
+        path_matches = schedule.find_nearest_path_v2()
 
         for i, m in enumerate(path_matches):
             print(f"{path_matches[i].date_obj} {path_matches[i]}")
@@ -190,3 +169,31 @@ class TestSchedule:
         for i, m in enumerate(expected):
             assert str(path_matches[i]) == str(m)
             assert path_matches[i].date_obj == m.date_obj
+
+    def test_find_nearest_path_v2_no_match(self, monkeypatch, league_schedule_big):
+        m = Mock()
+        m.return_value = league_schedule_big
+        monkeypatch.setattr("title_belt_nhl.schedule.getFullSchedule", m)
+
+        monkeypatch.setattr("title_belt_nhl.schedule.INITIAL_BELT_HOLDER", "FLA")
+
+        schedule = Schedule("EDM", from_date=date(2024, 10, 28))
+        assert schedule.belt_holder == "FLA"
+
+        path_matches = schedule.find_nearest_path_v2()
+
+        assert path_matches is None
+
+    def test_find_nearest_path_v2_end_of_season(self, monkeypatch, league_schedule_big):
+        m = Mock()
+        m.return_value = league_schedule_big
+        monkeypatch.setattr("title_belt_nhl.schedule.getFullSchedule", m)
+
+        monkeypatch.setattr("title_belt_nhl.schedule.INITIAL_BELT_HOLDER", "FLA")
+
+        schedule = Schedule("UTA", from_date=date(2025, 8, 15))
+        assert schedule.belt_holder == "FLA"
+
+        path_matches = schedule.find_nearest_path_v2()
+
+        assert path_matches is None
