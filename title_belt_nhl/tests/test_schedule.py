@@ -159,16 +159,17 @@ class TestSchedule:
             print(f"{path_matches[i].date_obj} {path_matches[i]}")
         assert len(path_matches) == 6
 
-        m1 = Match("FLA", "BOS", date_obj=date(2024, 10, 8))
-        m2 = Match("OTT", "FLA", date_obj=date(2024, 10, 10))
-        m3 = Match("BUF", "FLA", date_obj=date(2024, 10, 12))
-        m4 = Match("PIT", "BUF", date_obj=date(2024, 10, 16))
-        m5 = Match("CBJ", "BUF", date_obj=date(2024, 10, 17))
-        m6 = Match("CBJ", "MIN", date_obj=date(2024, 10, 19))
+        m1 = Match("FLA", "BOS", belt_holder="FLA", date_obj=date(2024, 10, 8))
+        m2 = Match("OTT", "FLA", belt_holder="FLA", date_obj=date(2024, 10, 10))
+        m3 = Match("BUF", "FLA", belt_holder="FLA", date_obj=date(2024, 10, 12))
+        m4 = Match("PIT", "BUF", belt_holder="BUF", date_obj=date(2024, 10, 16))
+        m5 = Match("CBJ", "BUF", belt_holder="BUF", date_obj=date(2024, 10, 17))
+        m6 = Match("CBJ", "MIN", belt_holder="CBJ", date_obj=date(2024, 10, 19))
         expected = [m1, m2, m3, m4, m5, m6]
         for i, m in enumerate(expected):
             assert str(path_matches[i]) == str(m)
             assert path_matches[i].date_obj == m.date_obj
+            assert path_matches[i].belt_holder == m.belt_holder
 
     def test_find_nearest_path_v2_no_match(self, monkeypatch, league_schedule_big):
         m = Mock()

@@ -21,11 +21,12 @@ class Match:
     home_last: str = None
     away_last: str = None
 
-    def __init__(self, home, away, serial_date=None, date_obj=None):
+    def __init__(self, home, away, serial_date=None, date_obj=None, belt_holder=None):
         self.home = home
         self.away = away
         self.serial_date = serial_date
         self.date_obj = date_obj or ExcelDate(serial_date=serial_date).date_obj
+        self.belt_holder = belt_holder
 
     def __str__(self):
         return f"[{self.home} vs {self.away}]"
