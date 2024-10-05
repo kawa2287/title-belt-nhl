@@ -57,15 +57,19 @@ class TestSchedule:
 
         schedule = Schedule("VAN", from_date=date(2023, 9, 29))
         assert schedule.belt_holder == "PIT"
-        assert len(schedule.matches) == 6
 
-        path = schedule.find_nearest_path_str(
-            [schedule.belt_holder], schedule.belt_holder
-        )
-        assert len(path.split("vs")) - 1 == 2
+        path_matches = schedule.find_nearest_path_v2()
 
-        expected = "PIT -> [DAL vs PIT] -> DAL -> [VAN vs DAL]"
-        assert path == expected
+        for i, m in enumerate(path_matches):
+            print(f"{path_matches[i].date_obj} {path_matches[i]}")
+        assert len(path_matches) == 2
+
+        m1 = Match("DAL", "PIT", date_obj=date(2023, 9, 30))
+        m2 = Match("VAN", "DAL", date_obj=date(2023, 10, 1))
+        expected = [m1, m2]
+        for i, m in enumerate(expected):
+            assert str(path_matches[i]) == str(m)
+            assert path_matches[i].date_obj == m.date_obj
 
     def test_find_nearest_path_games(self, monkeypatch, league_schedule):
         m = Mock()
@@ -92,22 +96,26 @@ class TestSchedule:
         m = Mock()
         m.return_value = league_schedule_big
         monkeypatch.setattr("title_belt_nhl.schedule.getFullSchedule", m)
-
         monkeypatch.setattr("title_belt_nhl.schedule.INITIAL_BELT_HOLDER", "FLA")
 
         schedule = Schedule("CAR", from_date=date(2024, 10, 3))
         assert schedule.belt_holder == "FLA"
-        assert len(schedule.matches) == 74
 
-        path = schedule.find_nearest_path_str(
-            [schedule.belt_holder], schedule.belt_holder
-        )
-        assert len(path.split("vs")) - 1 == 6
+        path_matches = schedule.find_nearest_path_v2()
 
-        # this is what the fn returns now, but it's not the shortest path
-        # TODO: fix the fn so it returns the (a) shortest path
-        expected_wrong = "FLA -> [FLA vs BOS] -> BOS -> [BOS vs MTL] -> MTL -> [MTL vs OTT] -> MTL -> [MTL vs PIT] -> PIT -> [PIT vs BUF] -> PIT -> [PIT vs CAR]"  # noqa: E501
-        assert path == expected_wrong
+        for i, m in enumerate(path_matches):
+            print(f"{path_matches[i].date_obj} {path_matches[i]}")
+        assert len(path_matches) == 5
+
+        m1 = Match("FLA", "BOS", date_obj=date(2024, 10, 8))
+        m2 = Match("OTT", "FLA", date_obj=date(2024, 10, 10))
+        m3 = Match("BUF", "FLA", date_obj=date(2024, 10, 12))
+        m4 = Match("PIT", "BUF", date_obj=date(2024, 10, 16))
+        m5 = Match("PIT", "CAR", date_obj=date(2024, 10, 18))
+        expected = [m1, m2, m3, m4, m5]
+        for i, m in enumerate(expected):
+            assert str(path_matches[i]) == str(m)
+            assert path_matches[i].date_obj == m.date_obj
 
     def test_find_nearest_path_games_big(self, monkeypatch, league_schedule_big):
         m = Mock()
@@ -118,7 +126,7 @@ class TestSchedule:
 
         schedule = Schedule("CAR", from_date=date(2024, 10, 3))
         assert schedule.belt_holder == "FLA"
-        assert len(schedule.matches) == 74
+        assert len(schedule.matches) == 169
 
         path_matches = schedule.find_nearest_path_games()
         for i, m in enumerate(path_matches):
@@ -134,3 +142,59 @@ class TestSchedule:
         for i, m in enumerate(expected):
             assert str(path_matches[i]) == str(m)
             assert path_matches[i].date_obj == m.date_obj
+
+    def test_find_nearest_path_v2(self, monkeypatch, league_schedule_big):
+        m = Mock()
+        m.return_value = league_schedule_big
+        monkeypatch.setattr("title_belt_nhl.schedule.getFullSchedule", m)
+
+        monkeypatch.setattr("title_belt_nhl.schedule.INITIAL_BELT_HOLDER", "FLA")
+
+        schedule = Schedule("MIN", from_date=date(2024, 10, 3))
+        assert schedule.belt_holder == "FLA"
+
+        path_matches = schedule.find_nearest_path_v2()
+
+        for i, m in enumerate(path_matches):
+            print(f"{path_matches[i].date_obj} {path_matches[i]}")
+        assert len(path_matches) == 6
+
+        m1 = Match("FLA", "BOS", belt_holder="FLA", date_obj=date(2024, 10, 8))
+        m2 = Match("OTT", "FLA", belt_holder="FLA", date_obj=date(2024, 10, 10))
+        m3 = Match("BUF", "FLA", belt_holder="FLA", date_obj=date(2024, 10, 12))
+        m4 = Match("PIT", "BUF", belt_holder="BUF", date_obj=date(2024, 10, 16))
+        m5 = Match("CBJ", "BUF", belt_holder="BUF", date_obj=date(2024, 10, 17))
+        m6 = Match("CBJ", "MIN", belt_holder="CBJ", date_obj=date(2024, 10, 19))
+        expected = [m1, m2, m3, m4, m5, m6]
+        for i, m in enumerate(expected):
+            assert str(path_matches[i]) == str(m)
+            assert path_matches[i].date_obj == m.date_obj
+            assert path_matches[i].belt_holder == m.belt_holder
+
+    def test_find_nearest_path_v2_no_match(self, monkeypatch, league_schedule_big):
+        m = Mock()
+        m.return_value = league_schedule_big
+        monkeypatch.setattr("title_belt_nhl.schedule.getFullSchedule", m)
+
+        monkeypatch.setattr("title_belt_nhl.schedule.INITIAL_BELT_HOLDER", "FLA")
+
+        schedule = Schedule("EDM", from_date=date(2024, 10, 28))
+        assert schedule.belt_holder == "FLA"
+
+        path_matches = schedule.find_nearest_path_v2()
+
+        assert path_matches is None
+
+    def test_find_nearest_path_v2_end_of_season(self, monkeypatch, league_schedule_big):
+        m = Mock()
+        m.return_value = league_schedule_big
+        monkeypatch.setattr("title_belt_nhl.schedule.getFullSchedule", m)
+
+        monkeypatch.setattr("title_belt_nhl.schedule.INITIAL_BELT_HOLDER", "FLA")
+
+        schedule = Schedule("UTA", from_date=date(2025, 8, 15))
+        assert schedule.belt_holder == "FLA"
+
+        path_matches = schedule.find_nearest_path_v2()
+
+        assert path_matches is None

@@ -59,7 +59,10 @@ def path_alt(ctx):
     if team == holder:
         click.echo(f"{team} ALREADY HAS THE BELT!")
     else:
-        path = schedule.find_nearest_path_str([holder], holder)
-        games = path.split("vs")
-        click.echo(f"{len(games)-1} GAMES UNTIL `{team}` HAS A SHOT AT THE BELT")
-        click.echo(path)
+        path_matches = schedule.find_nearest_path_v2()
+        if path_matches is None:
+            click.echo(f"NO PATH FOUND FOR `{team}`")
+        else:
+            click.echo(f"{len(path_matches)} GAMES UNTIL `{team}` HAS A SHOT AT THE BELT")
+            for match in path_matches:
+                click.echo(f"\t{match.date_obj} | {match.belt_holder} -> {match}")

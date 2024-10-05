@@ -1,3 +1,4 @@
+from copy import deepcopy
 from datetime import date, datetime
 from pathlib import Path
 from textwrap import dedent
@@ -20,11 +21,12 @@ class Match:
     home_last: str = None
     away_last: str = None
 
-    def __init__(self, home, away, serial_date=None, date_obj=None):
+    def __init__(self, home, away, serial_date=None, date_obj=None, belt_holder=None):
         self.home = home
         self.away = away
         self.serial_date = serial_date
         self.date_obj = date_obj or ExcelDate(serial_date=serial_date).date_obj
+        self.belt_holder = belt_holder
 
     def __str__(self):
         return f"[{self.home} vs {self.away}]"
@@ -131,31 +133,62 @@ class Schedule:
             self.set_from_date(from_date)
         return [g for g in self.matches if g.serial_date >= self.from_date.serial_date]
 
-    def find_match(self, current_belt_holder, from_date) -> Match:
+    def find_match(self, current_belt_holder, from_date) -> Match | None:
         for match in self.matches_after_date_inclusive(from_date=from_date):
             if (
                 match.away == current_belt_holder or match.home == current_belt_holder
             ) and self.from_date.serial_date < match.serial_date:
                 match.belt_holder = current_belt_holder
-                return match
+                return deepcopy(match)
+        return None
 
-    def find_nearest_path_str(self, teams, path_string, from_date=None) -> str:
-        newTeams = []
-        if from_date:
-            self.set_from_date(from_date)
-        for tm in teams:
-            splits = tm.split(" -> ")
-            cur_match: Match = self.find_match(splits[-1], self.from_date)
+    def find_nearest_path_v2(
+        self, scenarios: list[list[Match]] | None = None
+    ) -> list[Match]:
+        """Find the shortest path from current belt holder to self.team. This is a
+        recursive function that branches out at a rate of 2^x by exploring each match
+        outcome of either home team winning or away team winning.  Recursion ends when
+        self.team is found, or when no further matches can be found"""
+
+        newScenarios: list[list[Match]] = []
+
+        # Handle initial function call and find next match of the current belt holder
+        if scenarios is None:
+            scenarios = [[self.find_match(self.belt_holder, self.from_date)]]
+
+        # Handle when no further matches can be found
+        if len(scenarios) == 0:
+            return None
+
+        for s in scenarios:
+            cur_match = s[-1]
             if cur_match:
                 if cur_match.away == self.team or cur_match.home == self.team:
-                    return f"{tm} -> {cur_match}"
-                newTeams.append(f"{tm} -> {cur_match} -> {cur_match.away}")
-                newTeams.append(f"{tm} -> {cur_match} -> {cur_match.home}")
+                    # found a path to team
+                    return s
 
-        path_string = self.find_nearest_path_str(
-            newTeams, path_string, cur_match.serial_date
-        )
-        return path_string
+                # Add new Scenario branches
+                newScenarios.append(
+                    self.create_new_scenario_branch(
+                        cur_match.home, cur_match.serial_date, s
+                    )
+                )
+                newScenarios.append(
+                    self.create_new_scenario_branch(
+                        cur_match.away, cur_match.serial_date, s
+                    )
+                )
+
+        shortestPath = self.find_nearest_path_v2(newScenarios)
+        return shortestPath
+
+    def create_new_scenario_branch(
+        self, team: str, matchDate: int, scenario: list[Match]
+    ):
+        scenario_copy = deepcopy(scenario)
+        next_match = self.find_match(team, matchDate)
+        scenario_copy.append(next_match)
+        return scenario_copy
 
     def find_nearest_path_games(self):
         """Find the shortest path from the current belt holder's next game until
