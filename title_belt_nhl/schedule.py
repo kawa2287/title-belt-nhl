@@ -138,7 +138,7 @@ class Schedule:
                 match.away == current_belt_holder or match.home == current_belt_holder
             ) and self.from_date.serial_date < match.serial_date:
                 match.belt_holder = current_belt_holder
-                return match
+                return deepcopy(match)
         return None
 
     def find_nearest_path_v2(
