@@ -200,7 +200,7 @@ class Schedule:
         scenario_copy.append(next_match)
         return scenario_copy
 
-    def find_nearest_path_games(self) -> list[list[Match]]:
+    def find_nearest_path_games(self) -> list[set[Match]]:
         """Find the shortest path from the current belt holder's next game until
         self.team has a chance to play for the belt. May involve the belt changing
         hands in between.
@@ -208,30 +208,36 @@ class Schedule:
         Requires
         """
         first_match: Match = self.find_match(self.belt_holder, self.from_date)
-        matches = [[first_match]]
+        matches = [{first_match}]
         depth = 0
         found = False
         while matches[depth] and not found:
             cur_matches = matches[depth]
-            next_matches = []
+            next_matches = set()
             for m in cur_matches:
                 if m.away == self.team or m.home == self.team:
+                    # this updates the on_shortest_path for all relevant matches
+                    # and home_next and away_next
                     traverse_matches_backwards(match=m)
                     m.on_shortest_path = True
                     found = True
-                else:
-                    next_match_home = self.find_match(m.home, m.date_obj)
-                    if next_match_home:
-                        # else no more matches for home team
-                        next_match_home.away_last = m
-                        next_matches.append(next_match_home)
+                    # don't break if we want all shortest paths
+                    break
+                # else:  # need else if we want all shortest paths
+                next_match_home = self.find_match(m.home, m.date_obj)
+                if next_match_home:
+                    # else no more matches for home team
+                    next_match_home.away_last = m
+                    next_matches.add(next_match_home)
 
-                    next_match_away = self.find_match(m.away, m.date_obj)
-                    if next_match_away:
-                        # else no more matches for away team
-                        next_match_away.home_last = m
-                        next_matches.append(next_match_away)
-            if not found:
+                next_match_away = self.find_match(m.away, m.date_obj)
+                if next_match_away:
+                    # else no more matches for away team
+                    next_match_away.home_last = m
+                    next_matches.add(next_match_away)
+
+            # `if found` instead of `else` here if we want all shortest paths
+            else:
                 depth += 1
                 if len(next_matches) > 0:
                     matches.append(next_matches)
