@@ -41,8 +41,11 @@ def path(ctx):
     else:
         path_matches = schedule.find_nearest_path_games()
         click.echo(f"{len(path_matches)} GAMES UNTIL `{team}` HAS A SHOT AT THE BELT")
-        for match in path_matches:
-            click.echo(f"\t{match.date_obj} | {match.belt_holder} -> {match}")
+        for depth, match_list in enumerate(path_matches):
+            click.echo(f"{depth}: {len(match_list)}")
+            for match in match_list:
+                on_shortest_path = "*" if match.on_shortest_path else ""
+                click.echo(f"\t{match.date_obj} | {match.belt_holder} -> {match} {on_shortest_path}")
 
 
 @cli.command()
