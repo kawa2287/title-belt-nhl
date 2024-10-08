@@ -88,9 +88,14 @@ class TestSchedule:
         m1 = Match("DAL", "PIT", date_obj=date(2023, 9, 30))
         m2 = Match("VAN", "DAL", date_obj=date(2023, 10, 1))
         expected = [m1, m2]
-        for i, m in enumerate(expected):
-            assert str(path_matches[i]) == str(m)
-            assert path_matches[i].date_obj == m.date_obj
+        found = [False, False]
+        for d, match_list in enumerate(path_matches):
+            for m in match_list:
+                if str(expected[d]) == str(m) and expected[d].date_obj == m.date_obj:
+                    found[d] = True
+                    assert m.on_shortest_path
+
+        assert all(found)
 
     def test_find_nearest_path_str_big(self, monkeypatch, league_schedule_big):
         m = Mock()
@@ -129,8 +134,6 @@ class TestSchedule:
         assert len(schedule.matches) == 169
 
         path_matches = schedule.find_nearest_path_games()
-        for i, m in enumerate(path_matches):
-            print(f"{path_matches[i].date_obj} {path_matches[i]}")
         assert len(path_matches) == 5
 
         m1 = Match("FLA", "BOS", date_obj=date(2024, 10, 8))
@@ -139,9 +142,14 @@ class TestSchedule:
         m4 = Match("PIT", "BUF", date_obj=date(2024, 10, 16))
         m5 = Match("PIT", "CAR", date_obj=date(2024, 10, 18))
         expected = [m1, m2, m3, m4, m5]
-        for i, m in enumerate(expected):
-            assert str(path_matches[i]) == str(m)
-            assert path_matches[i].date_obj == m.date_obj
+        found = [False, False, False, False, False]
+        for d, match_list in enumerate(path_matches):
+            for m in match_list:
+                if str(expected[d]) == str(m) and expected[d].date_obj == m.date_obj:
+                    found[d] = True
+                    assert m.on_shortest_path
+
+        assert all(found)
 
     def test_find_nearest_path_v2(self, monkeypatch, league_schedule_big):
         m = Mock()

@@ -200,7 +200,7 @@ class Schedule:
         scenario_copy.append(next_match)
         return scenario_copy
 
-    def find_nearest_path_games(self):
+    def find_nearest_path_games(self) -> list[list[Match]]:
         """Find the shortest path from the current belt holder's next game until
         self.team has a chance to play for the belt. May involve the belt changing
         hands in between.
