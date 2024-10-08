@@ -18,8 +18,11 @@ class Match:
     serial_date: int
     date_obj: date
     belt_holder: str = None
-    home_last: str = None
-    away_last: str = None
+    home_last: "Match" = None
+    away_last: "Match" = None
+    home_next: "Match" = None
+    away_next: "Match" = None
+    on_shortest_path: bool = False
 
     def __init__(self, home, away, serial_date=None, date_obj=None, belt_holder=None):
         self.home = home
@@ -64,6 +67,13 @@ def traverse_matches_backwards(
 
         if not last_match:
             break
+        last_match.on_shortest_path = True
+        last_match.home_next = (
+            cur_match if last_match.home in [cur_match.home, cur_match.away] else None
+        )
+        last_match.away_next = (
+            cur_match if last_match.away in [cur_match.home, cur_match.away] else None
+        )
         cur_match = last_match
 
     return path_matches
@@ -190,7 +200,7 @@ class Schedule:
         scenario_copy.append(next_match)
         return scenario_copy
 
-    def find_nearest_path_games(self):
+    def find_nearest_path_games(self) -> list[list[Match]]:
         """Find the shortest path from the current belt holder's next game until
         self.team has a chance to play for the belt. May involve the belt changing
         hands in between.
@@ -200,12 +210,15 @@ class Schedule:
         first_match: Match = self.find_match(self.belt_holder, self.from_date)
         matches = [[first_match]]
         depth = 0
-        while matches[depth]:
+        found = False
+        while matches[depth] and not found:
             cur_matches = matches[depth]
             next_matches = []
             for m in cur_matches:
                 if m.away == self.team or m.home == self.team:
-                    return traverse_matches_backwards(match=m)
+                    traverse_matches_backwards(match=m)
+                    m.on_shortest_path = True
+                    found = True
                 else:
                     next_match_home = self.find_match(m.home, m.date_obj)
                     if next_match_home:
@@ -218,10 +231,13 @@ class Schedule:
                         # else no more matches for away team
                         next_match_away.home_last = m
                         next_matches.append(next_match_away)
-            depth += 1
-            if len(next_matches) > 0:
-                matches.append(next_matches)
+            if not found:
+                depth += 1
+                if len(next_matches) > 0:
+                    matches.append(next_matches)
 
+        if found:
+            return matches
         # didn't find a path (raise an Exception or something?)
         return None
 
