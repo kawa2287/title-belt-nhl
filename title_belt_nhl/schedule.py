@@ -1,5 +1,5 @@
 from copy import deepcopy
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from textwrap import dedent
 from typing import Optional, Union
@@ -73,7 +73,7 @@ class Schedule:
     team: str
     belt_holder: str
     matches: list[Match] = []
-    from_date: ExcelDate = ExcelDate(date_obj=date.today())
+    from_date: ExcelDate = ExcelDate(date_obj=date.today() - timedelta(days=1))
     season: str
 
     def __init__(

@@ -1,8 +1,12 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.poetry]
 name = "title-belt-nhl"
-version = "0.3.0"
-description = ""
-authors = []
+version = "0.3.1"
+description = "CLI tool to compute NHL Title Belt info."
+authors = ["kawa2287", "elffaW"]
 readme = "README.md"
 packages = [{ include = "title_belt_nhl" }]
 include = ["title_belt_nhl/static/config.json", "title_belt_nhl/static/schedule.csv"]
@@ -21,14 +25,13 @@ ruff = ">=0.6.0"
 pytest = "^8.3.3"
 pytest-ruff = "^0.4.1"
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
 [tool.ruff]
+line-length = 90
+
+[tool.ruff.lint]
 # # Enable Pyflakes `E` and `F` codes by default.
-lint.select = ["F", "E", "W", "I", "N", "YTT", "A", "C4", "RET", "SIM"]
-lint.ignore = [
+select = ["F", "E", "W", "I", "N", "YTT", "A", "C4", "RET", "SIM"]
+ignore = [
     "A003",
     "E402",
     "E741",
@@ -43,7 +46,6 @@ lint.ignore = [
     "RET505",
     "SIM102",
 ]
-line-length = 90
 [tool.ruff.lint.pep8-naming]
 classmethod-decorators = ["classmethod", "pydantic.validator"]
 
