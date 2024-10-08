@@ -68,8 +68,12 @@ def traverse_matches_backwards(
         if not last_match:
             break
         last_match.on_shortest_path = True
-        last_match.home_next = cur_match if last_match.home in [cur_match.home, cur_match.away] else None
-        last_match.away_next = cur_match if last_match.away in [cur_match.home, cur_match.away] else None
+        last_match.home_next = (
+            cur_match if last_match.home in [cur_match.home, cur_match.away] else None
+        )
+        last_match.away_next = (
+            cur_match if last_match.away in [cur_match.home, cur_match.away] else None
+        )
         cur_match = last_match
 
     return path_matches

@@ -44,8 +44,10 @@ def path(ctx):
         for depth, match_list in enumerate(path_matches):
             click.echo(f"{depth}: {len(match_list)}")
             for match in match_list:
-                on_shortest_path = "*" if match.on_shortest_path else ""
-                click.echo(f"\t{match.date_obj} | {match.belt_holder} -> {match} {on_shortest_path}")
+                on_path = "*" if match.on_shortest_path else ""
+                click.echo(
+                    f"\t{match.date_obj} | {match.belt_holder} -> {match} {on_path}"
+                )
 
 
 @cli.command()
