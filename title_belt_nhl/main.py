@@ -1,6 +1,7 @@
 import rich_click as click
 
 from title_belt_nhl.schedule import Schedule
+from title_belt_nhl.service.nhl_api import getFullSchedule
 
 team_option = click.option(
     "--team", default="VAN", required=True, help="Team abbrev. (ex: CHI)."
@@ -18,8 +19,6 @@ season_option = click.option(
 @season_option
 @click.pass_context
 def cli(ctx, team, season):
-    click.echo(f"Calculating shortest path for {team} to challenge for the belt...")
-
     schedule = Schedule(team, season)
     ctx.ensure_object(dict)
     ctx.obj["schedule"] = schedule
@@ -31,6 +30,8 @@ def path(ctx):
     schedule: Schedule = ctx.obj["schedule"]
     team = schedule.team
     holder = schedule.belt_holder
+
+    click.echo(f"Calculating shortest path for {team} to challenge for the belt...")
 
     click.echo("=============================================================")
     click.echo(f"CURRENT SEASON: {schedule.get_season_pretty()}")
@@ -57,6 +58,8 @@ def path_alt(ctx):
     team = schedule.team
     holder = schedule.belt_holder
 
+    click.echo(f"Calculating shortest path for {team} to challenge for the belt...")
+
     click.echo("=============================================================")
     click.echo(f"CURRENT SEASON: {schedule.get_season_pretty()}")
     click.echo(f"CURRENT BELT HOLDER: {holder}")
@@ -71,3 +74,23 @@ def path_alt(ctx):
             click.echo(f"{len(path_matches)} GAMES UNTIL `{team}` HAS A SHOT AT THE BELT")
             for match in path_matches:
                 click.echo(f"\t{match.date_obj} | {match.belt_holder} -> {match}")
+
+
+@cli.command()
+@click.pass_context
+def belt_path(ctx):
+    click.echo("Calculating the path of the belt so far...")
+
+    schedule: Schedule = ctx.obj["schedule"]
+    leagueSchedule = getFullSchedule(schedule.season)
+
+    click.echo("=============================================================")
+    click.echo(f"CURRENT SEASON: {schedule.get_season_pretty()}")
+    click.echo(f"CURRENT BELT HOLDER: {schedule.belt_holder}")
+
+    path_matches = Schedule.find_belt_path(leagueSchedule, schedule)
+    if path_matches is None:
+        click.echo("COULD NOT COMPUTE BELT PATH SO FAR")
+    else:
+        for match in path_matches:
+            click.echo(f"\t{match.date_obj} | {match.belt_holder} -> {match}")

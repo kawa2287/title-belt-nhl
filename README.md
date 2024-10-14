@@ -11,7 +11,7 @@ poetry install
 poetry shell
 
 # or run individual commands with the poetry run prefix
-poetry run title-belt-nhl`
+poetry run title-belt-nhl
 ```
 
 The following steps assume you are in a poetry shell.
@@ -32,12 +32,14 @@ Options:
   --help         Show this message and exit.
 
 Commands:
+  belt-path
   path
   path-alt
 ```
 
-* use `path-alt` to get a string showing list of games
-* use `path` to get the list of games using a diff algorithm
+* use `path-alt` to get a list of games recursively
+* use `path` to get the nested list of games iteratively, containing all evaluated games with the shortest path marked
+* use `belt-path` to get the list of complete games that the belt has traveled so far, plus the next title belt match
 
 ## Linting and Formatting
 
