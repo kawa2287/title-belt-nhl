@@ -22,17 +22,55 @@ class Match:
     away_last: "Match" = None
     home_next: "Match" = None
     away_next: "Match" = None
+    home_score: int = None
+    away_score: int = None
     on_shortest_path: bool = False
 
-    def __init__(self, home, away, serial_date=None, date_obj=None, belt_holder=None):
+    def __init__(
+        self,
+        home,
+        away,
+        serial_date=None,
+        date_obj=None,
+        belt_holder=None,
+        home_score=None,
+        away_score=None,
+    ):
         self.home = home
         self.away = away
         self.serial_date = serial_date
         self.date_obj = date_obj or ExcelDate(serial_date=serial_date).date_obj
         self.belt_holder = belt_holder
+        self.home_score = home_score
+        self.away_score = away_score
 
     def __str__(self):
         return f"[{self.home} vs {self.away}]"
+
+    def __eq__(self, other: "Match"):
+        """Determines whether two Match objects are the same.
+
+        We consider two Matches to be equal if they occur on the same date
+        and between the same teams.
+        """
+        date_equals = (
+            self.serial_date == other.serial_date or self.date_obj == other.date_obj
+        )
+        teams_equal = self.home == other.home and self.away == other.away
+        return date_equals and teams_equal
+
+    @classmethod
+    def from_game(cls, game: Game):
+        game_date_obj = datetime.strptime(game.gameDate, "%Y-%m-%d").date()
+
+        return Match(
+            game.homeTeam["abbrev"],
+            game.awayTeam["abbrev"],
+            serial_date=ExcelDate(date_obj=game_date_obj).serial_date,
+            date_obj=game_date_obj,
+            home_score=getattr(game.homeTeam, "score", None),
+            away_score=getattr(game.awayTeam, "score", None),
+        )
 
 
 def traverse_matches_backwards(
@@ -108,15 +146,7 @@ class Schedule:
 
         self.matches = []
         for game in leagueSchedule:
-            game_date_obj = datetime.strptime(game.gameDate, "%Y-%m-%d").date()
-
-            match = Match(
-                game.homeTeam["abbrev"],
-                game.awayTeam["abbrev"],
-                serial_date=ExcelDate(date_obj=game_date_obj).serial_date,
-                date_obj=game_date_obj,
-            )
-            self.matches.append(match)
+            self.matches.append(Match.from_game(game))
 
     def __str__(self):
         return dedent(f""" \
@@ -208,12 +238,12 @@ class Schedule:
         Requires
         """
         first_match: Match = self.find_match(self.belt_holder, self.from_date)
-        matches = [{first_match}]
+        matches = [[first_match]]
         depth = 0
         found = False
         while matches[depth] and not found:
             cur_matches = matches[depth]
-            next_matches = set()
+            next_matches = []
             for m in cur_matches:
                 if m.away == self.team or m.home == self.team:
                     # this updates the on_shortest_path for all relevant matches
@@ -228,13 +258,13 @@ class Schedule:
                 if next_match_home:
                     # else no more matches for home team
                     next_match_home.away_last = m
-                    next_matches.add(next_match_home)
+                    next_matches.append(next_match_home)
 
                 next_match_away = self.find_match(m.away, m.date_obj)
                 if next_match_away:
                     # else no more matches for away team
                     next_match_away.home_last = m
-                    next_matches.add(next_match_away)
+                    next_matches.append(next_match_away)
 
             # `if found` instead of `else` here if we want all shortest paths
             else:
@@ -280,3 +310,40 @@ class Schedule:
             if winningTeam is not None and cg.is_title_belt_game(cur_belt_holder):
                 cur_belt_holder = winningTeam
         return cur_belt_holder
+
+    @classmethod
+    def find_belt_path(
+        cls,
+        league_schedule: list[Game],
+        schedule: "Schedule" = None,
+        start_belt_holder: str = INITIAL_BELT_HOLDER,
+    ) -> str:
+        """
+        Given an array of `Game` and the Abbreviation of the season start belt holder,
+        Return the path that the belt has taken so far, based off of game results.
+        This assumes the list of games is pre-sorted by date.
+
+        If schedule is provided, will also include the next title belt match.
+        """
+        cur_belt_holder = start_belt_holder
+        completed_games: list[Game] = list(
+            filter(lambda x: x.is_game_complete(), league_schedule)
+        )
+
+        last_date = None
+        matches = []
+
+        for cg in completed_games:
+            winning_team = cg.determine_winning_team()
+            if winning_team is not None and cg.is_title_belt_game(cur_belt_holder):
+                m = Match.from_game(cg)
+                m.belt_holder = cur_belt_holder
+                matches.append(m)
+
+                cur_belt_holder = winning_team
+                last_date = m.date_obj
+
+        if schedule and last_date:
+            matches.append(schedule.find_match(cur_belt_holder, last_date))
+
+        return matches
