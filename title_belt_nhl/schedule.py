@@ -63,13 +63,22 @@ class Match:
     def from_game(cls, game: Game):
         game_date_obj = datetime.strptime(game.gameDate, "%Y-%m-%d").date()
 
+        home_score = None
+        away_score = None
+
+        try:
+            home_score = game.homeTeam["score"]
+            away_score = game.awayTeam["score"]
+        except KeyError:
+            pass
+
         return Match(
             game.homeTeam["abbrev"],
             game.awayTeam["abbrev"],
             serial_date=ExcelDate(date_obj=game_date_obj).serial_date,
             date_obj=game_date_obj,
-            home_score=getattr(game.homeTeam, "score", None),
-            away_score=getattr(game.awayTeam, "score", None),
+            home_score=home_score,
+            away_score=away_score,
         )
 
 
@@ -317,7 +326,7 @@ class Schedule:
         league_schedule: list[Game],
         schedule: "Schedule" = None,
         start_belt_holder: str = INITIAL_BELT_HOLDER,
-    ) -> str:
+    ) -> list[Match]:
         """
         Given an array of `Game` and the Abbreviation of the season start belt holder,
         Return the path that the belt has taken so far, based off of game results.

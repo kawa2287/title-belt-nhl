@@ -93,4 +93,7 @@ def belt_path(ctx):
         click.echo("COULD NOT COMPUTE BELT PATH SO FAR")
     else:
         for match in path_matches:
-            click.echo(f"\t{match.date_obj} | {match.belt_holder} -> {match}")
+            click.echo(
+                f"\t{match.date_obj}\t{match.belt_holder} -> {match}"
+                + f"\t({match.home_score} - {match.away_score})"
+            )
