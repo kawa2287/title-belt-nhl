@@ -279,6 +279,7 @@ class Schedule:
             else:
                 depth += 1
                 if len(next_matches) > 0:
+                    next_matches.sort(key=lambda m: m.date_obj)
                     matches.append(next_matches)
 
         if found:
